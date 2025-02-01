@@ -9,7 +9,7 @@
     </head>
     <body>
 
-        <h1>Seja bem-vindo ao Sis Adm Laravel</h1>
+        <h1>Seja bem-vindo ao Sis Adm Laravel teste</h1>
 
         <p>
             Data atual: {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }};
