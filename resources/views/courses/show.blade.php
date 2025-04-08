@@ -4,7 +4,14 @@
 <h1>Visualizar o curso</h1>
 
 <a href="{{ route('courses.index') }}">Listar</a><br>
-<a href="{{ route('courses.edit') }}">Editar</a><br><br>
+<a href="{{ route('courses.edit', ['course' => $course->id]) }}">Editar</a><br><br>
+
+@if (session('success'))
+<p style="color: green">
+    {{ session('success') }}
+</p>
+    
+@endif
 
 ID: {{ $course->id }}<br>
 Nome: {{ $course->name }}<br>

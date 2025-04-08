@@ -42,24 +42,31 @@ class CourseController extends Controller
         
          //Cadastrar no banco de dados na tabela cursos os valores de todos os campos
          // dd($request);
-         Course::create([
+         $course = Course::create([
             'name' => $request->name
          ]);
 
          //Redirecionar o usuário; enviar a mensagem de sucesso.
-         return redirect()->route('courses.create')->with('success', 'Curso cadastrado com sucesso!');
+         return redirect()->route('courses.show', ['course' => $course->id])->with('success', 'Curso cadastrado com sucesso!');
 
      }
 
       // Carregar o forumulario editar curso
-      public function edit(){        
+      public function edit(Course $course){        
+
         //Carrega a view
-        return view('courses.edit');
+        return view('courses.edit', ['course' => $course]);
      }
 
       // Atualiza as informações no banco os dados do curso
-      public function update(){
-        dd("Editar no banco os dados o curso");
+      public function update(Request $request, Course $course){
+         $course->update([
+            'name' => $request->name
+         ]);
+      
+      // Redireciona o usuario e envia mensagem de sucesso
+      return redirect()->route('courses.show', ['course' => $course->id])->with('success', 'Curso editado com sucesso!');
+        
      }
 
       // Exclui o curso no banco os dados

@@ -16,7 +16,7 @@
         @csrf
         @method('POST')
 
-        <label for="">Nome: </label>
+        <label for="" class="form-label">Nome: </label>
         <input type="text" name="name" id="name" placeholder="Nome do curso" value="{{ old('name') }}" required>
 
         <button type="submit">Cadastrar</button>
