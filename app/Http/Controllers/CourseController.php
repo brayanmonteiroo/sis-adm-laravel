@@ -13,7 +13,7 @@ class CourseController extends Controller
 
       //Recuperar os registros do banco de dados
       // $courses = Course::where('id', 1000)->get();
-      $courses = Course::orderBy('name', 'ASC')->get();
+      $courses = Course::orderBy('id', 'ASC')->get();
       // $courses = Course::paginate(3);
 
        //Carrega a view
@@ -21,9 +21,14 @@ class CourseController extends Controller
     }
 
      // Visualizar o curso
-     public function show(){        
+     public function show(Course $course){        
         //Carrega a view
-        return view('courses.show');
+      //   dd($request->course);
+      
+
+      // forma alternativa para recuperar o registro: $course = Course::where('id', $request->course)->first();
+
+        return view('courses.show', ['course' => $course]);
      }
 
      // Carregar o forumulario cadastrar novo curso
