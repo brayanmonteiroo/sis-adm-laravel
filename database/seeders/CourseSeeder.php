@@ -15,19 +15,22 @@ class CourseSeeder extends Seeder
     {
         if(!Course::where('name', 'Curso de Laravel')->first()){
         Course::create([
-            'name' => 'Curso de Laravel'
+            'name' => 'Curso de Laravel',
+            'price' => 197.43
         ]);
         }
 
         if(!Course::where('name', 'Curso de PHP Orientado a Objetos')->first()){
         Course::create([
-            'name' => 'Curso de PHP Orientado a Objetos'
+            'name' => 'Curso de PHP Orientado a Objetos',
+            'price' => 297.43
         ]);
         }
 
         if(!Course::where('name', 'Curso de Javascript')->first()){
         Course::create([
-            'name' => 'Curso de Javascript'
+            'name' => 'Curso de Javascript',
+            'price' => 397.43
         ]);
         }
     }

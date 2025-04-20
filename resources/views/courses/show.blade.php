@@ -17,14 +17,11 @@
             onclick="return confirm('Você tem certeza que deseja apagar este curso?')">Apagar</button>
     </form><br>
 
-    @if (session('success'))
-        <p style="color: green">
-            {{ session('success') }}
-        </p>
-    @endif
+    <x-alert />
 
     ID: {{ $course->id }}<br>
     Nome: {{ $course->name }}<br>
+    Preço {{ 'R$ ' . number_format($course->price, 2, ',', '.') }}<br>
     Data da criação: {{ \Carbon\Carbon::parse($course->created_at)->format('d/m/Y H:i:s') }}<br>
     Data de modificação: {{ \Carbon\Carbon::parse($course->updated_at)->format('d/m/Y H:i:s') }}<br>
 @endsection
