@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Classe extends Model
 {
@@ -11,4 +12,9 @@ class Classe extends Model
 
     // Indicar quais colunas podem ser cadastradas
     protected $fillable = ['name', 'description', 'course_id'];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

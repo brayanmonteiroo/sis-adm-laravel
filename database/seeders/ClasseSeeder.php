@@ -17,6 +17,7 @@ class ClasseSeeder extends Seeder
             Classe::create([
                 'name' => 'Aula 1',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor veniam maiores eum fuga quam explicabo consequuntur quae provident hic, laudantium expedita, a natus eius exercitationem aperiam nesciunt consequatur modi totam?',
+                'order_classe' => 1,
                 'course_id' => 1
             ]);
         }
@@ -25,6 +26,7 @@ class ClasseSeeder extends Seeder
             Classe::create([
                 'name' => 'Aula 2',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor veniam maiores eum fuga quam explicabo consequuntur quae provident hic, laudantium expedita, a natus eius exercitationem aperiam nesciunt consequatur modi totam?',
+                'order_classe' => 2,
                 'course_id' => 1
             ]);
         }
@@ -33,6 +35,7 @@ class ClasseSeeder extends Seeder
             Classe::create([
                 'name' => 'Aula 1B',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor veniam maiores eum fuga quam explicabo consequuntur quae provident hic, laudantium expedita, a natus eius exercitationem aperiam nesciunt consequatur modi totam?',
+                'order_classe' => 1,
                 'course_id' => 2
             ]);
         }

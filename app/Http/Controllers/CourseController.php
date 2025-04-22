@@ -15,7 +15,7 @@ class CourseController extends Controller
         // Recuperar os registros do banco dados
         // $courses = Course::where('id', 1000)->get();
         // $courses = Course::paginate(10);
-        $courses = Course::orderBy('name', 'ASC')->get();
+        $courses = Course::orderBy('ID', 'ASC')->get();
 
         // Carregar a VIEW
         return view('courses.index', ['courses' => $courses]);
@@ -55,7 +55,7 @@ class CourseController extends Controller
         ]);
         
         // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('courses.show', ['course' => $course->id])->with('success', 'Curso cadastrado com sucesso!');
+        return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso cadastrado com sucesso!');
     }
     
     // Carregar o formulário editar curso
@@ -79,7 +79,7 @@ class CourseController extends Controller
         ]);
 
         // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('courses.show', ['course' => $course->id])->with('success', 'Curso editado com sucesso!');
+        return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso editado com sucesso!');
         
     }
     
@@ -90,7 +90,7 @@ class CourseController extends Controller
         $course->delete();
 
         // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('courses.index')->with('success', 'Curso excluído com sucesso!');
+        return redirect()->route('course.index')->with('success', 'Curso excluído com sucesso!');
         
     }
 }

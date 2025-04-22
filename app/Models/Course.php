@@ -11,4 +11,10 @@ class Course extends Model
 
     // Indicar quais colunas podem ser cadastradas
     protected $fillable = ['name', 'price'];
+
+    // Criar relacionamento de 1 para Muitos
+    public function classe()
+    {
+        return $this->hasMany(Classe::class);
+    }
 }

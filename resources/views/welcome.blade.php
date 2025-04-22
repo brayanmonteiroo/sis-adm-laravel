@@ -10,7 +10,7 @@
     <body>
 
         <h1>Seja bem-vindo ao Sis Adm Laravel</h1><br>
-        <a href="{{ route('courses.index') }}">Listar os Cursos</a>
+        <a href="{{ route('course.index') }}">Listar os Cursos</a>
         <p>
             {{-- Data atual: {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }}; --}}
         </p>
