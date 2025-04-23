@@ -11,7 +11,7 @@ class Classe extends Model
     protected $table = 'classes';
 
     // Indicar quais colunas podem ser cadastradas
-    protected $fillable = ['name', 'description', 'course_id'];
+    protected $fillable = ['name', 'description', 'order_classe', 'course_id'];
 
     public function course()
     {

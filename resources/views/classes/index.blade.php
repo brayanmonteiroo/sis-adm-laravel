@@ -9,6 +9,10 @@
         <button type="button">Todos os Cursos</button>
     </a><br><br>
 
+    <a href="{{ route('classe.create', ['course' => $course->id]) }}">
+        <button type="button">Cadastrar Aula</button>
+    </a><br><br>
+
     <x-alert />
 
     @forelse ($classes as $classe)
