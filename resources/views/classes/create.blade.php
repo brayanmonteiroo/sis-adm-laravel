@@ -16,10 +16,15 @@
         @method('POST')
 
         <input type="hidden" name="course_id" id="course_id" value="{{ $course->id }}">
+
+        <label>Curso: </label>
+        <input type="text" name="name_course" id="name_course" value="{{ ($course->name) }}" disabled><br><br>
+
         <label>Nome: </label>
         <input type="text" name="name" id="name" placeholder="Nome da aula" value="{{ old('name') }}" required><br><br>
+
         <label>Descrição: </label>
-        <textarea name="description" id="description" rows="4" cols="30" rows="10">{{ old('description') }}</textarea><br><br>
+        <textarea name="description" id="description" rows="4" cols="30" rows="10" required>{{ old('description') }}</textarea><br><br>
 
         <button type="submit">Cadastrar Aula</button>
     </form>
