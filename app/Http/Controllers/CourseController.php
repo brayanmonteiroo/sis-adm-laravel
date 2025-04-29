@@ -6,6 +6,7 @@ use App\Http\Requests\CourseRequest;
 use App\Models\Course;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -19,6 +20,9 @@ class CourseController extends Controller
         // $courses = Course::paginate(10);
         $courses = Course::orderBy('ID', 'ASC')->get();
 
+        //Salvar  log
+        Log::info('Listar cursos');
+
         // Carregar a VIEW
         return view('courses.index', ['courses' => $courses]);
     }
@@ -29,6 +33,9 @@ class CourseController extends Controller
 
         // dd($request->course);
         // $course = Course::where('id', $request->course)->first();
+
+        //Salvar  log
+        Log::info('Visualizar o curso', ['course_id' => $course->id]);
 
         // Carregar a VIEW
         return view('courses.show', ['course' => $course]);
@@ -64,11 +71,16 @@ class CourseController extends Controller
             // Operação é concluída
             DB::commit();
 
+            //Salvar  log
+            Log::info('Curso cadastrado', ['course_id' => $course->id]);
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso cadastrado com sucesso!');
         } catch (Exception $e) {
             // Quando a operação não é concluida
             DB::rollBack();
+            //Salvar  log
+            Log::notice('Curso não cadastrado', ['error' => $e->getMessage()]);
             // Redirecionar o usuário, enviar a mensagem de error
             return back()->withInput()->with('error', 'O curso não pode ser cadastrado!');
         }
@@ -103,11 +115,16 @@ class CourseController extends Controller
             // Operação é concluída
             DB::commit();
 
+            //Salvar  log
+            Log::info('Curso editado', ['course_id' => $course->id]);
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso editado com sucesso!');
         } catch (Exception $e) {
             // Quando a operação não é concluida
             DB::rollBack();
+            //Salvar  log
+            Log::warning('Curso não editado', ['error' => $e->getMessage()]);
             // Redirecionar o usuário, enviar a mensagem de error
             return back()->withInput()->with('error', 'O curso não pode ser editado!');
         }
@@ -120,9 +137,14 @@ class CourseController extends Controller
             // Excluir o registro do banco de dados
             $course->delete();
 
+            //Salvar  log
+            Log::info('Curso apagado', ['course_id' => $course->id]);
+
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('course.index')->with('success', 'Curso excluído com sucesso!');
         } catch (Exception $e) {
+            //Salvar  log
+            Log::warning('Curso não apagado', ['error' => $e->getMessage()]);
             // Redirecionar o usuário, enviar a mensagem de erro
             return redirect()->route('course.index')->with('error', 'O curso não pode ser excluído!');
         }

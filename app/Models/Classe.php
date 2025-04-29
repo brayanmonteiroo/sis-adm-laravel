@@ -2,11 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Classe extends Model
+use \OwenIt\Auditing\Auditable as AuditingAuditable;
+use OwenIt\Auditing\Contracts\Auditable;
+
+class Classe extends Model implements Auditable
 {
+
+    use HasFactory, AuditingAuditable;
+
     // Indicar o nome da tabela
     protected $table = 'classes';
 
