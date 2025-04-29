@@ -8,6 +8,7 @@ use App\Models\Classe;
 use App\Models\Course;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ClasseController extends Controller
 {
@@ -18,6 +19,9 @@ class ClasseController extends Controller
             ->where('course_id', $course->id)
             ->orderBy('order_classe')
             ->get();
+
+        //Salvar  log
+        Log::info('Listar aulas');
 
         // Carregar a view
         return view('classes.index', ['course' => $course, 'classes' => $classes]);
@@ -108,6 +112,8 @@ class ClasseController extends Controller
     // Visualizar aula
     public function show(Classe $classe)
     {
+        //Salvar  log
+        Log::info('Visualizar a aula', ['classe_id' => $classe->id]);
 
         // Carregar a VIEW
         return view('classes.show', ['classe' => $classe]);
@@ -123,8 +129,10 @@ class ClasseController extends Controller
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('classe.index', ['course' => $classe->course_id])->with('success', 'Aula excluída com sucesso!');
         } catch (Exception $e) {
-            // Redirecionar o usuário, enviar a mensagem de error
-            return redirect()->route('classe.index', ['course' => $classe->course_id])->with('error', 'A aula não pode ser excluída!');
+            //Salvar  log
+            Log::warning('A aula não foi excluída', ['error' => $e->getMessage()]);
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return redirect()->route('classe.index')->with('error', 'A aula não foi excluída');
         }
     }
 }

@@ -19,7 +19,7 @@
 
     <x-alert />
 
-    ID: {{ $classe->course_id }}<br>
+    ID do curso: {{ $classe->id }}<br>
     Nome: {{ $classe->name }}<br>
     Descrição: {{ $classe->description }}<br>
     Cadastrado: {{ \Carbon\Carbon::parse($classe->created_at)->format('d/m/Y H:i:s') }}<br>

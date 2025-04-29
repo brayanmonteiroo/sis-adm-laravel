@@ -144,9 +144,9 @@ class CourseController extends Controller
             return redirect()->route('course.index')->with('success', 'Curso excluído com sucesso!');
         } catch (Exception $e) {
             //Salvar  log
-            Log::warning('Curso não apagado', ['error' => $e->getMessage()]);
+            Log::warning('O curso não foi excluído', ['error' => $e->getMessage()]);
             // Redirecionar o usuário, enviar a mensagem de erro
-            return redirect()->route('course.index')->with('error', 'O curso não pode ser excluído!');
+            return redirect()->route('course.index')->with('error', 'O curso não foi excluído');
         }
     }
 }
