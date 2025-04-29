@@ -7,6 +7,7 @@ use App\Http\Requests\ClasseRequest;
 use App\Models\Classe;
 use App\Models\Course;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ClasseController extends Controller
 {
@@ -35,22 +36,36 @@ class ClasseController extends Controller
         // Validar o formulário
         $request->validated();
 
-        // Recuperar a ultima ordem da aula no curso
-        $lastOrderClasse = Classe::where('course_id', $request->course_id)
-            ->orderBy('order_classe', 'DESC')
-            ->first();
+        // Marcar o ponto inicial da transação
+        DB::beginTransaction();
+
+        try {
+
+            // Recuperar a ultima ordem da aula no curso
+            $lastOrderClasse = Classe::where('course_id', $request->course_id)
+                ->orderBy('order_classe', 'DESC')
+                ->first();
 
 
-        // Cadastrar no banco de dados a nova aula
-        Classe::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'order_classe' => $lastOrderClasse ? $lastOrderClasse->order_classe + 1 : 1,
-            'course_id' => $request->course_id
-        ]);
+            // Cadastrar no banco de dados a nova aula
+            Classe::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'order_classe' => $lastOrderClasse ? $lastOrderClasse->order_classe + 1 : 1,
+                'course_id' => $request->course_id
+            ]);
 
-        // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('classe.index', ['course' => $request->course_id])->with('success', 'Aula cadastrada com sucesso!');
+            // Operação é concluída
+            DB::commit();
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('classe.index', ['course' => $request->course_id])->with('success', 'Aula cadastrada com sucesso!');
+        } catch (Exception $e) {
+            // Quando a operação não é concluida
+            DB::rollBack();
+            // Redirecionar o usuário, enviar a mensagem de error
+            return back()->withInput()->with('error', 'A aula não pode ser cadastrada!');
+        }
     }
 
     // Carregar o formulario editar aula
@@ -66,14 +81,28 @@ class ClasseController extends Controller
         // Validar o formulario
         $request->validated();
 
-        // Editar as informações do registro no banco de dados
-        $classe->update([
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
+        // Marcar o ponto inicial da transação
+        DB::beginTransaction();
 
-        // Redirecionar o usuário e enviar mensagem de sucesso
-        return redirect()->route('classe.index', ['course' => $classe->course_id])->with('success', 'Aula editada com sucesso!');
+        try {
+
+            // Editar as informações do registro no banco de dados
+            $classe->update([
+                'name' => $request->name,
+                'description' => $request->description
+            ]);
+
+            // Operação é concluída
+            DB::commit();
+
+            // Redirecionar o usuário e enviar mensagem de sucesso
+            return redirect()->route('classe.index', ['course' => $classe->course_id])->with('success', 'Aula editada com sucesso!');
+        } catch (Exception $e) {
+            // Quando a operação não é concluida
+            DB::rollBack();
+            // Redirecionar o usuário, enviar a mensagem de error
+            return back()->withInput()->with('error', 'A aula não pode ser editada!');
+        }
     }
 
     // Visualizar aula
@@ -88,14 +117,14 @@ class ClasseController extends Controller
     public function destroy(Classe $classe)
     {
         try {
-        // Excluir o registro do banco de dados
-        $classe->delete();
+            // Excluir o registro do banco de dados
+            $classe->delete();
 
-        // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('classe.index', ['course' => $classe->course_id ])->with('success', 'Aula excluída com sucesso!');
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('classe.index', ['course' => $classe->course_id])->with('success', 'Aula excluída com sucesso!');
         } catch (Exception $e) {
             // Redirecionar o usuário, enviar a mensagem de error
-            return redirect()->route('classe.index', ['course' => $classe->course_id ])->with('error', 'A aula não pode ser excluída!');
+            return redirect()->route('classe.index', ['course' => $classe->course_id])->with('error', 'A aula não pode ser excluída!');
         }
     }
 }
