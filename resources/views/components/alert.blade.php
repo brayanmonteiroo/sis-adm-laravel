@@ -6,7 +6,7 @@
 
 @if (session('error'))
 <p style="color: red   ">
-    {{ session('success') }}
+    {{ session('error') }}
 </p>
 @endif
 
