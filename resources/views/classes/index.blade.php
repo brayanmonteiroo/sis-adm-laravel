@@ -1,45 +1,82 @@
 @extends('layouts.admin')
 
-
 @section('content')
+    <div class="container-fluid px-4">
+        <div class="mb-1">
+            <h2 class="mt-3">Aulas</h2>
 
-    <h2>Listar as Aulas</h2>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('course.index') }}" class="text-decoration-none">Cursos</a>
+                </li>
+                <li class="breadcrumb-item active">Aulas</li>
+            </ol>
+        </div>
 
-    <a href="{{ route('course.index') }}">
-        <button type="button">Todos os Cursos</button>
-    </a><br><br>
+        <div class="card mb-4">
+            <div class="card-header hstack gap-2">
+                <span>Todas as Aulas</span>
 
-    <a href="{{ route('classe.create', ['course' => $course->id]) }}">
-        <button type="button">Cadastrar Aula</button>
-    </a><br><br>
+                <span class="ms-auto">
+                    <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-primary btn-sm">Curso</a>
+                    <a href="{{ route('classe.create', ['course' => $course->id]) }}" class="btn btn-success btn-sm">Cadastrar</a>
+                </span>
+            </div>
 
-    <x-alert />
+            <div class="card-body">
+                <x-alert />
 
-    @forelse ($classes as $classe)
-        ID: {{ $classe->id }}<br>
-        Nome: {{ $classe->name }}<br>
-        Ordem: {{ $classe->order_classe }}<br>
-        Descrição: {{ $classe->description }}<br>
-        Curso ID: {{ $classe->course->name }}<br>
-        Cadastrado: {{ \Carbon\Carbon::parse($classe->created_at)->format('d/m/Y H:i:s') }}<br>
-        Editado: {{ \Carbon\Carbon::parse($classe->updated_at)->format('d/m/Y H:i:s') }}<br><br>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Ordem</th>
+                                <th>Descrição</th>
+                                <th>Curso</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
 
+                        <tbody>
+                            @forelse ($classes as $classe)
+                                <tr>
+                                    <th>{{ $classe->id }}</th>
+                                    <td class="text-break">{{ $classe->name }}</td>
+                                    <td>{{ $classe->order_classe }}</td>
+                                    <td class="text-break">{{ $classe->description }}</td>
+                                    <td class="text-break">{{ $classe->course->name }}</td>
+                                    <td>
+                                        <div class="d-flex flex-wrap justify-content-center gap-1">
+                                            <a href="{{ route('classe.show', ['classe' => $classe->id]) }}"
+                                                class="btn btn-primary btn-sm">Visualizar</a>
 
-        <a href="{{ route('classe.show', ['classe' => $classe->id]) }}">
-            <button type="button">Visualizar</button>
-        </a><br><br>
-        <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}">
-            <button type="button">Editar</button>
-        </a><br><br>
+                                            <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}"
+                                                class="btn btn-warning btn-sm">Editar</a>
 
-        <form action="{{ route('classe.destroy', ['classe' => $classe->id]) }}" method="POST">
-            @csrf
-            @method('delete')
-            <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
-        </form>
-
-        <hr>
-    @empty
-        <p style="color: #f00">Nenhuma aula encontrada!</p>
-    @endforelse
+                                            <form action="{{ route('classe.destroy', ['classe' => $classe->id]) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="alert alert-danger text-center mb-0">
+                                            Nenhuma aula encontrada!
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

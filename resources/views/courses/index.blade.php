@@ -1,46 +1,80 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h2>Listar os Cursos</h2>
+    <div class="container-fluid px-4">
+        <div class="mb-1">
+            <h2 class="mt-3">Cursos</h2>
 
-    <a href="{{ route('course.create') }}">
-        <button type="button">Cadastrar</button>
-    </a><br><br>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item">
+                    <a href="#" class="text-decoration-none">Painel</a>
+                </li>
+                <li class="breadcrumb-item active">Cursos</li>
+            </ol>
+        </div>
 
-    <x-alert />
+        <div class="card mb-4">
+            <div class="card-header hstack gap-2">
+                <span>Todos os Cursos</span>
 
-    {{-- Imprimir os registros --}}
-    @forelse ($courses as $course)
-        ID: {{ $course->id }}<br>
-        Nome: {{ $course->name }}<br>
-        Preço: {{ 'R$ ' . number_format($course->price, 2, ',', '.') }}<br>
-        Cadastrado: {{ \Carbon\Carbon::parse($course->created_at)->format('d/m/Y H:i:s') }}<br>
-        Editado: {{ \Carbon\Carbon::parse($course->updated_at)->format('d/m/Y H:i:s') }}<br><br>
+                <span class="ms-auto">
+                    <a href="{{ route('course.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
+                </span>
+            </div>
 
-        <a href="{{ route('classe.index', ['course' => $course->id]) }}">
-            <button type="button">Aulas</button>
-        </a><br><br>
+            <div class="card-body">
+                <x-alert />
 
-        <a href="{{ route('course.show', ['course' => $course->id]) }}">
-            <button type="button">Visualizar</button>
-        </a><br><br>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Preço</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
 
-        <a href="{{ route('course.edit', ['course' => $course->id]) }}">
-            <button type="button">Editar</button>
-        </a><br><br>
+                        <tbody>
+                            @forelse ($courses as $course)
+                                <tr>
+                                    <th>{{ $course->id }}</th>
+                                    <td class="text-break">{{ $course->name }}</td>
+                                    <td>{{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</td>
+                                    <td>
+                                        <div class="d-flex flex-wrap justify-content-center gap-1">
+                                            <a href="{{ route('classe.index', ['course' => $course->id]) }}"
+                                                class="btn btn-info btn-sm">Aulas</a>
 
-        <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST">
-            @csrf
-            @method('delete')
-            <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
-        </form>
+                                            <a href="{{ route('course.show', ['course' => $course->id]) }}"
+                                                class="btn btn-primary btn-sm">Visualizar</a>
 
-        <hr>
+                                            <a href="{{ route('course.edit', ['course' => $course->id]) }}"
+                                                class="btn btn-warning btn-sm">Editar</a>
 
-    @empty
-        <p style="color: #f00">Nenhum curso encontrado!</p>
-    @endforelse
-
-    {{-- Imprimir a paginação --}}
-    {{-- {{ $courses->links() }} --}}
+                                            <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="alert alert-danger text-center mb-0">
+                                            Nenhum curso encontrado!
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
