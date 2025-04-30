@@ -7,6 +7,9 @@
 
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item">
+                    <a href="#" class="text-decoration-none">Painel</a>
+                </li>
+                <li class="breadcrumb-item">
                     <a href="{{ route('course.index') }}" class="text-decoration-none">Cursos</a>
                 </li>
                 <li class="breadcrumb-item active">Aulas</li>
@@ -27,7 +30,7 @@
                 <x-alert />
 
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered align-middle">
+                    <table id="datatablesSimple" class="table table-hover table-bordered align-middle">
                         <thead class="table-light">
                             <tr>
                                 <th>ID</th>
@@ -45,7 +48,7 @@
                                     <th>{{ $classe->id }}</th>
                                     <td class="text-break">{{ $classe->name }}</td>
                                     <td>{{ $classe->order_classe }}</td>
-                                    <td class="text-break">{{ $classe->description }}</td>
+                                    <td class="text-break w-25">{{ $classe->description }}</td>
                                     <td class="text-break">{{ $classe->course->name }}</td>
                                     <td>
                                         <div class="d-flex flex-wrap justify-content-center gap-1">
