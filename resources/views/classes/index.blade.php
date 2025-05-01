@@ -29,8 +29,8 @@
             <div class="card-body">
                 <x-alert />
 
-                <div class="table-responsive">
-                    <table id="datatablesSimple" class="table table-hover table-bordered align-middle">
+                <div class="table-responsive-sm">
+                    <table class="table table-hover table-bordered align-middle">
                         <thead class="table-light">
                             <tr>
                                 <th>ID</th>
@@ -46,10 +46,10 @@
                             @forelse ($classes as $classe)
                                 <tr>
                                     <th>{{ $classe->id }}</th>
-                                    <td class="text-break">{{ $classe->name }}</td>
+                                    <td>{{ $classe->name }}</td>
                                     <td>{{ $classe->order_classe }}</td>
-                                    <td class="text-break w-25">{{ $classe->description }}</td>
-                                    <td class="text-break">{{ $classe->course->name }}</td>
+                                    <td>{{ $classe->description }}</td>
+                                    <td>{{ $classe->course->name }}</td>
                                     <td>
                                         <div class="d-flex flex-wrap justify-content-center gap-1">
                                             <a href="{{ route('classe.show', ['classe' => $classe->id]) }}"
