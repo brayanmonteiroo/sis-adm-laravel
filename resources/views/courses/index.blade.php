@@ -76,7 +76,7 @@
                     </table>
 
                     {{-- Imprimir Paginação --}}
-                    {{ $courses->links() }}
+                    {{ $courses->links('custom.pagination') }}
 
                 </div>
             </div>

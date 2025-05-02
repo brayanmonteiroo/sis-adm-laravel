@@ -16,7 +16,7 @@ class CourseController extends Controller
     {
 
         $courses = Course::orderBy('ID', 'ASC')
-            ->paginate(3);
+            ->paginate(5);
 
         //Salvar  log
         Log::info('Listar cursos');
