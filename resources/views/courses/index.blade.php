@@ -53,7 +53,8 @@
                                             <a href="{{ route('course.edit', ['course' => $course->id]) }}"
                                                 class="btn btn-warning btn-sm">Editar</a>
 
-                                            <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST">
+                                            <form action="{{ route('course.destroy', ['course' => $course->id]) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-danger btn-sm"
@@ -73,6 +74,10 @@
                             @endforelse
                         </tbody>
                     </table>
+
+                    {{-- Imprimir Paginação --}}
+                    {{ $courses->links() }}
+
                 </div>
             </div>
         </div>
