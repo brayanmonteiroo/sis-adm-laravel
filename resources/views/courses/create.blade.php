@@ -39,14 +39,14 @@
 
                     <div class="col-12">
                         <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Nome do Curso"
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Digite o nome do curso"
                             value="{{ old('name') }}" >
                     </div>
 
                     <div class="col-12">
                         <label for="name" class="form-label">Preço</label>
                         <input type="text" class="form-control" name="price" id="price"
-                            placeholder="Preço do curso: 2.47" value="{{ old('price') }}" >
+                            placeholder="Digite o preço do curso" value="{{ old('price') }}" >
                     </div>
 
                     <div class="col-12">
