@@ -18,15 +18,15 @@
                 <span>Todos os Cursos</span>
 
                 <span class="ms-auto">
-                    <a href="{{ route('course.create') }}" class="btn btn-success btn-sm">Cadastrar</a>
+                    <a href="{{ route('course.create') }}" class="btn btn-success btn-sm"><i class="fa-regular fa-square-plus"></i> Novo Curso</a>
                 </span>
             </div>
 
             <div class="card-body">
                 <x-alert />
 
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered align-middle">
+                <div class="table-responsive border-light-subtle">
+                    <table class="table table-hover align-middle border-light-subtle">
                         <thead class="table-light">
                             <tr>
                                 <th>ID</th>
@@ -45,20 +45,20 @@
                                     <td>
                                         <div class="d-flex flex-wrap justify-content-center gap-1">
                                             <a href="{{ route('classe.index', ['course' => $course->id]) }}"
-                                                class="btn btn-info btn-sm">Aulas</a>
+                                                class="btn btn-info btn-sm"><i class="fa-solid fa-list"></i> Aulas</a>
 
                                             <a href="{{ route('course.show', ['course' => $course->id]) }}"
-                                                class="btn btn-primary btn-sm">Visualizar</a>
+                                                class="btn btn-primary btn-sm"><i class="fa-regular fa-eye"></i> Ver</a>
 
                                             <a href="{{ route('course.edit', ['course' => $course->id]) }}"
-                                                class="btn btn-warning btn-sm">Editar</a>
+                                                class="btn btn-warning btn-sm"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
 
                                             <form action="{{ route('course.destroy', ['course' => $course->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+                                                    onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i class="fa-regular fa-trash-can"></i> Apagar</button>
                                             </form>
                                         </div>
                                     </td>
@@ -74,11 +74,11 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div> {{-- Fim div table --}}
 
-                    {{-- Imprimir Paginação --}}
-                    {{ $courses->links('custom.pagination') }}
+                {{-- Imprimir Paginação --}}
+                {{ $courses->links() }}
 
-                </div>
             </div>
         </div>
     </div>

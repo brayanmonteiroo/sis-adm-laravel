@@ -5,12 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    {{-- CSS Bootstrap --}}
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    {{-- CSS SB Admin --}}
-    <link rel="stylesheet" href="{{ asset('css/styles_sbadmin.css') }}">
-    {{-- CSS Font Awesome 6 --}}
-    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="sb-nav-fixed">
@@ -91,15 +89,6 @@
 
     </div>
 
-
-
-
-    {{-- JS Bootstrap --}}
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    {{-- Js SB Admin --}}
-    <script src="{{ asset('js/scripts_sbadmin.js') }}"></script>
-    {{-- Icons Font Awesome 6--}}
-    <script src="{{ asset('js/all.min.js') }}"></script>
 
 </body>
 
