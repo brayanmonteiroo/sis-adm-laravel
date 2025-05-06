@@ -13,7 +13,7 @@
         <div class="card mb-4 border-light shadow">
 
             <div class="card-header hstack gap-2">
-                <span>Painel</span>
+                <span>Visão Geral</span>
 
                 <span class="ms-auto d-sm-flex flex-row">
 

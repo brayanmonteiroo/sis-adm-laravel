@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Laravel ADM</title>
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
@@ -32,7 +32,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="#!">Sair</a></li>
+                    <li><a class="dropdown-item" href="{{ route('login.index') }}">Sair</a></li>
                 </ul>
             </li>
         </ul>
@@ -59,7 +59,7 @@
                             Cursos
                         </a>
 
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('login.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
                             Sair
                         </a>
