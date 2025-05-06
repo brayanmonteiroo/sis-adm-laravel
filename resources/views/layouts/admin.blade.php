@@ -44,12 +44,17 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
 
-                        <a class="nav-link" href="#">
+                        <a @class(['nav-link', 'active' => isset($menu) && $menu == 'dashboard']) href="{{ route('dashboard.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Painel
                         </a>
 
-                        <a class="nav-link" href="{{ route('course.index') }}">
+                        <a @class(['nav-link', 'active' => isset($menu) && $menu == 'users']) href="{{ route('user.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                            Usuários
+                        </a>
+
+                        <a @class(['nav-link', 'active' => isset($menu) && $menu == 'courses']) href="{{ route('course.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
                             Cursos
                         </a>

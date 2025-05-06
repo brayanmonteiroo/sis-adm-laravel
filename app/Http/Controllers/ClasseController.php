@@ -24,14 +24,14 @@ class ClasseController extends Controller
         Log::info('Listar aulas');
 
         // Carregar a view
-        return view('classes.index', ['course' => $course, 'classes' => $classes]);
+        return view('classes.index', ['menu' => 'courses', 'course' => $course, 'classes' => $classes]);
     }
 
     // Carrega o formulário cadastrar nova aula
     public function create(Course $course)
     {
         // Carrega a view
-        return view('classes.create', ['course' => $course]);
+        return view('classes.create', ['menu' => 'courses', 'course' => $course]);
     }
 
     // Cadastrar no banco de dados a nova aula
@@ -116,7 +116,7 @@ class ClasseController extends Controller
         Log::info('Visualizar a aula', ['classe_id' => $classe->id]);
 
         // Carregar a VIEW
-        return view('classes.show', ['classe' => $classe]);
+        return view('classes.show', ['menu' => 'courses', 'classe' => $classe]);
     }
 
     // Excluir a aula do banco de dados
