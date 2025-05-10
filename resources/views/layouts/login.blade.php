@@ -13,7 +13,13 @@
 
 <body class="bg-dark d-flex align-items-center justify-content-center min-vh-100">
 
-    @yield('content')
+    <main class="container">
+        <div class="row justify-content-center">
+
+            @yield('content')
+
+        </div>
+    </main>
 
 </body>
 

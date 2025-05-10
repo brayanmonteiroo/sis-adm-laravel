@@ -15,6 +15,8 @@ Route::get('/', function () {
 Route::get('/', [LoginController::class, 'index'])->name('login.index');
 Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.process');
 Route::get('/logout', [LoginController::class, 'destroyLogin'])->name('login.destroy');
+Route::get('/create-user-login', [LoginController::class, 'create'])->name('login.create-user');
+Route::post('/store-user-login', [LoginController::class, 'store'])->name('login.store-user');
 
 Route::group(['middleware' => 'auth'], function () {
 
