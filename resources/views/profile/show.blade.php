@@ -18,10 +18,10 @@
                 <span class="ms-auto d-sm-flex flex-row">
 
                     <a href="{{ route('profile.edit') }}" class="btn btn-warning btn-sm me-1"><i
-                            class="fa-solid fa-pen-to-square"></i> Editar
+                            class="fa-solid fa-pen-to-square"></i> Editar Perfil
                     </a>
 
-                    <a href="{{ route('profile.edit-password') }}" class="btn btn-warning btn-sm me-1"><i
+                    <a href="{{ route('profile.edit-password') }}" class="btn btn-danger btn-sm me-1"><i
                             class="fa-solid fa-pen-to-square"></i> Editar Senha
                     </a>
 
