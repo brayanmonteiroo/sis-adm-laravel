@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,12 @@ Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.pro
 Route::get('/logout', [LoginController::class, 'destroyLogin'])->name('login.destroy');
 Route::get('/create-user-login', [LoginController::class, 'create'])->name('login.create-user');
 Route::post('/store-user-login', [LoginController::class, 'store'])->name('login.store-user');
+
+// Recuperar senha
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPassword'])->name('forgot-password.show');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'submitForgotPassword'])->name('forgot-password.submit');
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPassword'])->name('password.reset');
+
 
 Route::group(['middleware' => 'auth'], function () {
 

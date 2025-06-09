@@ -32,6 +32,9 @@ class LoginController extends Controller
 
         if(!$authenticated){
 
+            //Salvar log
+            Log::warning('E-mail ou senha inválidos', ['email' => $request->email]);
+
             // Redirecionar o usuário para a página anterior 'login', enviar a mensagem de erro
             return back()->withInput()->with('error', 'E-mail ou senha inválidos');
         }
@@ -75,7 +78,7 @@ class LoginController extends Controller
         } catch (Exception $e) {
 
             // Salvar log
-            Log::info('Usuário não cadastrado.', ['error' => $e->getMessage()]);
+            Log::warning('Usuário não cadastrado.', ['error' => $e->getMessage()]);
 
             // Operação não é concluída com êxito
             DB::rollBack();
