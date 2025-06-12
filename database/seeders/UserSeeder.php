@@ -15,27 +15,58 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         if (!User::where('email', 'brayan@gmail.com')->first()){
-            User::create([
+            $superAdmin = User::create([
                 'name' => 'Brayan',
                 'email' => 'brayan@gmail.com',
                 'password' => Hash::make('123456a', ['rounds' => 12])
             ]);
+
+            //Atribuir Papel para o usuário
+            $superAdmin->assignRole('Super Admin');
         }
 
         if (!User::where('email', 'socorro@gmail.com')->first()){
-            User::create([
+            $admin = User::create([
                 'name' => 'Socorro',
                 'email' => 'socorro@gmail.com',
                 'password' => Hash::make('123456a', ['rounds' => 12])
             ]);
+
+            //Atribuir Papel para o usuário
+            $admin->assignRole('Admin');
         }
 
         if (!User::where('email', 'barbara@gmail.com')->first()){
-            User::create([
+            $professor = User::create([
                 'name' => 'Barbara',
                 'email' => 'barbara@gmail.com',
                 'password' => Hash::make('123456a', ['rounds' => 12])
             ]);
+
+            //Atribuir Papel para o usuário
+            $professor->assignRole('Professor');
+        }
+
+        if (!User::where('email', 'breno@gmail.com')->first()){
+            $tutor = User::create([
+                'name' => 'Breno',
+                'email' => 'breno@gmail.com',
+                'password' => Hash::make('123456a', ['rounds' => 12])
+            ]);
+
+            //Atribuir Papel para o usuário
+            $tutor->assignRole('Tutor');
+        }
+
+        if (!User::where('email', 'sidney@gmail.com')->first()){
+            $aluno = User::create([
+                'name' => 'Sidney',
+                'email' => 'sidney@gmail.com',
+                'password' => Hash::make('123456a', ['rounds' => 12])
+            ]);
+
+            //Atribuir Papel para o usuário
+            $aluno->assignRole('Aluno');
         }
     }
 }
