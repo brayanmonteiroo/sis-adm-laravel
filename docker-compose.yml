@@ -1,0 +1,65 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    container_name: sis_adm_laravel_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=sis_adm_laravel
+      - DB_USERNAME=sis_adm_laravel
+      - DB_PASSWORD=sis_adm_laravel
+      - APP_ENV=local
+      - APP_DEBUG=true
+    depends_on:
+      - db
+    expose:
+      - "9000"
+
+  nginx:
+    image: nginx:1.25
+    container_name: sis_adm_laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "8010:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: sis_adm_laravel_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: sis_adm_laravel
+      MYSQL_USER: sis_adm_laravel
+      MYSQL_PASSWORD: sis_adm_laravel
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3308:3306"
+    volumes:
+      - sis_adm_laravel_db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.2
+    container_name: sis_adm_laravel_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: sis_adm_laravel
+      PMA_PASSWORD: sis_adm_laravel
+    ports:
+      - "8011:80"
+    depends_on:
+      - db
+
+volumes:
+  sis_adm_laravel_db_data:
