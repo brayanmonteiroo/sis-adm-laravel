@@ -5,7 +5,21 @@
 * Node.js 20 ou superior
 * GIT
 
-## Como rodar o projeto baixado
+## Instalação com Docker
+Para instalar o projeto com Docker, é necessário ter o Docker e o Docker Compose instalados na máquina.
+Esse projeto já possui um arquivo `docker-compose.yml` configurado e Dockerfile para rodar o Laravel com Nginx, PHP-FPM e MySQL.
+Para rodar o projeto com Docker, execute os seguintes comandos no terminal:
+```bash
+docker-compose up -d
+```
+Após executar o comando acima, o Docker irá baixar as imagens necessárias e iniciar os containers.
+Para acessar o projeto, abra o navegador e acesse o seguinte endereço:
+```
+APP Laravel: http://localhost:8010
+PHPMyAdmin: http://localhost:8011
+```
+## Instalação sem Docker
+### Como rodar o projeto baixado
 
 Duplicar o arquivo ".env.example" e renomear para ".env".<br>
 Alterar no arquivo .env as credenciais do banco de dados<br>
@@ -51,7 +65,7 @@ Acessar o conteúdo padrão do Laravel
 http://127.0.0.1:8000
 ```
 
-## Sequencia para criar o projeto
+### Sequencia para criar o projeto
 Criar o projeto com Laravel
 ```
 composer create-project laravel/laravel .
