@@ -23,10 +23,14 @@
 
                 <span class="ms-auto d-sm-flex flex-row">
 
+                    @can('show-course')
                     <a href="{{ route('course.index') }}" class="btn btn-info btn-sm me-1 mb-1 mb-sm-0"><i class="fa-solid fa-list"></i> Cursos</a>
+                    @endcan
 
+                    @can('show-course')
                     <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-primary btn-sm me-1 mb-1 mb-sm-0"><i class="fa-regular fa-eye"></i> Ver
                     </a>
+                    @endcan
 
                 </span>
             </div>

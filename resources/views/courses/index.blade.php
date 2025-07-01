@@ -18,7 +18,9 @@
                 <span>Todos os Cursos</span>
 
                 <span class="ms-auto">
+                    @can('create-course')
                     <a href="{{ route('course.create') }}" class="btn btn-success btn-sm"><i class="fa-regular fa-square-plus"></i> Novo Curso</a>
+                    @endcan
                 </span>
             </div>
 
@@ -44,15 +46,22 @@
                                     <td>{{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</td>
                                     <td>
                                         <div class="d-flex flex-wrap justify-content-center gap-1">
+                                            @can('show-class')
                                             <a href="{{ route('classe.index', ['course' => $course->id]) }}"
                                                 class="btn btn-info btn-sm"><i class="fa-solid fa-list"></i> Aulas</a>
+                                            @endcan
 
+                                            @can('show-course')
                                             <a href="{{ route('course.show', ['course' => $course->id]) }}"
                                                 class="btn btn-primary btn-sm"><i class="fa-regular fa-eye"></i> Ver</a>
+                                            @endcan
 
+                                            @can('edit-course')
                                             <a href="{{ route('course.edit', ['course' => $course->id]) }}"
                                                 class="btn btn-warning btn-sm"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+                                            @endcan
 
+                                            @can('destroy-course')
                                             <form action="{{ route('course.destroy', ['course' => $course->id]) }}"
                                                 method="POST">
                                                 @csrf
@@ -60,6 +69,7 @@
                                                 <button type="submit" class="btn btn-danger btn-sm"
                                                     onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i class="fa-regular fa-trash-can"></i> Apagar</button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

@@ -25,15 +25,21 @@
 
                     <a href="{{ route('classe.index', ['course' => $course->id]) }}" class="btn btn-info btn-sm me-1 mb-1 mb-sm-0"><i class="fa-solid fa-list"></i> Aulas</a>
 
+                    @can('show-course')
                     <a href="{{ route('course.index') }}" class="btn btn-info btn-sm me-1 mb-1 mb-sm-0"><i class="fa-solid fa-list"></i> Cursos</a>
+                    @endcan
 
+                    @can('edit-course')
                     <a href="{{ route('course.edit', ['course' => $course->id]) }}" class="btn btn-warning btn-sm me-1 mb-1 mb-sm-0"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+                    @endcan
 
+                    @can('destroy-course')
                     <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i class="fa-regular fa-trash-can"></i> Apagar</button>
                     </form>
+                    @endcan
 
                 </span>
             </div>

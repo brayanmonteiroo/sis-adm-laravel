@@ -54,10 +54,12 @@
                             Usuários
                         </a>
 
+                        @can('index-course')
                         <a @class(['nav-link', 'active' => isset($menu) && $menu == 'courses']) href="{{ route('course.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
                             Cursos
                         </a>
+                        @endcan
 
                         <a class="nav-link" href="{{ route('login.destroy') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
