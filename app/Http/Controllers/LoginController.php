@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Models\User;
@@ -15,14 +14,19 @@ use Spatie\Permission\Models\Permission;
 
 class LoginController extends Controller
 {
+
     // Login
     public function index()
     {
-        //Carregar a view
+
+        // Salvar log
+        Log::info('Carregar o formulário de login');
+
+        // Carregar a VIEW
         return view('login.index');
     }
 
-    // Login
+    // Validar os dados do usuário no login
     public function loginProcess(LoginRequest $request)
     {
         // Validar o formulário
@@ -31,52 +35,57 @@ class LoginController extends Controller
         // Validar o usuário e a senha com as informações do banco de dados
         $authenticated = Auth::attempt(['email' => $request->email, 'password' => $request->password]);
 
+        // Verificar se o usuário foi autenticado
         if(!$authenticated){
 
-            //Salvar log
-            Log::warning('E-mail ou senha inválidos', ['email' => $request->email]);
-
-            // Redirecionar o usuário para a página anterior 'login', enviar a mensagem de erro
-            return back()->withInput()->with('error', 'E-mail ou senha inválidos');
+            // Salvar log
+            Log::warning('E-mail ou senha inválido!', ['email' => $request->email]);
+            
+            // Redirecionar o usuário para página anterior "login", enviar a mensagem de erro
+            return back()->withInput()->with('error', 'E-mail ou senha inválido!');
         }
 
         // Obter o usuário autenticado
         $user = Auth::user();
         $user = User::find($user->id);
 
-        // Verifica se a permissão é Super Admin, tem acesso a todas as páginas
+        // Verificar se a permissões é Super Admin, tem acesso a todas as páginas
         if($user->hasRole('Super Admin')){
 
             // O usuário tem todas as permissões
             $permissions = Permission::pluck('name')->toArray();
-
         }else{
-            
+
             // Recuperar no banco de dados as permissões que o papel possui
             $permissions = $user->getPermissionsViaRoles()->pluck('name')->toArray();
-
         }
 
         // Atribuir as permissões ao usuário
         $user->syncPermissions($permissions);
 
-        // Redireciona o usuário
-        return redirect()->route('dashboard.index');
+        // Salvar log
+        Log::info('Login realizado', ['email' => $request->email, 'action_user_id' => Auth::id()]);
 
-        
+        // Redirecionar o usuário
+        return redirect()->route('dashboard.index');
     }
 
-    //Carregar o fomulário cadastrar novo usuário
+    // Carregar o formulário cadastrar novo usuário
     public function create()
     {
-        // Carregar uma view
+
+        // Salvar log
+        Log::info('Carregar formulário cadastrar usuário no login.');
+
+        // Carregar a VIEW
         return view('login.create');
     }
 
+    // Cadastrar no banco de dados o novo usuário
     public function store(LoginUserRequest $request)
     {
         // Validar o formulário
-        $request ->validated();
+        $request->validated();
 
         // Marca o ponto inicial de uma transação
         DB::beginTransaction();
@@ -90,6 +99,9 @@ class LoginController extends Controller
                 'password' => $request->password,
             ]);
 
+            // Cadastrar papel para o usuário
+            $user->assignRole("Aluno");
+
             // Salvar log
             Log::info('Usuário cadastrado.', ['id' => $user->id]);
 
@@ -98,6 +110,7 @@ class LoginController extends Controller
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('login.index')->with('success', 'Usuário cadastrado com sucesso!');
+
         } catch (Exception $e) {
 
             // Salvar log
@@ -111,12 +124,19 @@ class LoginController extends Controller
         }
     }
 
-    public function destroyLogin()
+    // Deslogar o usuário
+    public function destroy()
     {
+
+        // Salvar log
+        Log::warning('Logout', ['action_user_id' => Auth::id()]);
+
         // Deslogar o usuário
         Auth::logout();
 
         // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('login.index')->with('success', 'Sessão encerrada com sucesso!');
+        return redirect()->route('login.index')->with('success', 'Deslogado com sucesso!');
+
     }
+
 }

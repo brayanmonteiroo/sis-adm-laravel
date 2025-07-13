@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Arr;
 
 class LoginUserRequest extends FormRequest
 {
@@ -22,6 +21,7 @@ class LoginUserRequest extends FormRequest
      */
     public function rules(): array
     {
+
         $userId = $this->route('user');
 
         return [

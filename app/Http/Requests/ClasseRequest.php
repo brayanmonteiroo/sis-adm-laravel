@@ -24,16 +24,16 @@ class ClasseRequest extends FormRequest
         return [
             'course_id' => 'required_if:course_id,!=,null',
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'course_id.required' => 'O id do curso é obrigatório',
-            'name.required' => 'O nome da aula é obrigatório',
-            'description.required' => 'A descrição da aula é obrigatória'
+            'course_id.required' => 'Necessário enviar o id do curso!',
+            'name.required' => 'Campo nome da aula é obrigatória!',
+            'description.required' => 'Campo descrição é obrigatório!',
         ];
     }
 }

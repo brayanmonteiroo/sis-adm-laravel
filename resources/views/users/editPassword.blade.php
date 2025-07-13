@@ -2,10 +2,11 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <div class="mb-1">
+        <div class="mb-1 hstack gap-2">
             <h2 class="mt-3">Usuário</h2>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('dashboard.index') }}">Painel</a></li>
+            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('dashboard.index') }}">Dashboard</a>
+                </li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('user.index') }}">Usuários</a></li>
                 <li class="breadcrumb-item active">Usuário</li>
             </ol>
@@ -16,20 +17,26 @@
                 <span>Editar Senha</span>
                 <span class="ms-auto d-sm-flex flex-row">
 
-                    <a href="{{ route('user.index') }}" class="btn btn-info btn-sm me-1"><i class="fa-solid fa-list"></i>
-                        Listar</a>
+                    @can('index-user')
+                        <a href="{{ route('user.index') }}" class="btn btn-info btn-sm me-1"><i class="fa-solid fa-list"></i>
+                            Listar</a>
+                    @endcan
 
-                    <a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-primary btn-sm me-1"><i
-                            class="fa-regular fa-eye"></i> Ver
-                    </a>
+                    @can('show-user')
+                        <a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-primary btn-sm me-1"><i
+                                class="fa-regular fa-eye"></i> Visualizar
+                        </a>
+                    @endcan
 
-                    <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger btn-sm me-1"
-                            onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i
-                                class="fa-regular fa-trash-can"></i> Apagar</button>
-                    </form>
+                    @can('destroy-user')
+                        <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger btn-sm me-1"
+                                onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i
+                                    class="fa-regular fa-trash-can"></i> Apagar</button>
+                        </form>
+                    @endcan
 
                 </span>
             </div>
@@ -43,8 +50,8 @@
 
                     <div class="col-12">
                         <label for="password" class="form-label">Senha: </label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Senha com no mínimo 6 caracteres"
-                            value="{{ old('password') }}">
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Senha com no mínimo 6 caracteres" value="{{ old('password') }}">
                     </div>
 
                     <div class="col-12">

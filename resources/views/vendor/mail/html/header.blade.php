@@ -6,8 +6,7 @@
 <img src="https://laravel.com/img/notification-logo.png" class="logo" alt="Laravel Logo">
 @else
 {{-- {{ $slot }} --}}
-<img src="{{ asset('img/brayan-logo.png') }}" class="logo" alt="Sis Adm Laravel - Logo">
-
+<img src="{{ asset('images/logo-define-100x100_v1.png') }}" class="logo" alt="Celke - Logo">
 @endif
 </a>
 </td>

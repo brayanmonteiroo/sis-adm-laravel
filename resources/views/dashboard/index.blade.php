@@ -2,18 +2,18 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <div class="mb-1">
-            <h2 class="mt-3">Painel</h2>
+        <div class="mb-1 hstack gap-2">
+            <h2 class="mt-3">Dashboard</h2>
 
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Painel</li>
+            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+                <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </div>
 
         <div class="card mb-4 border-light shadow">
 
             <div class="card-header hstack gap-2">
-                <span>Visão Geral</span>
+                <span>Dashboard</span>
 
                 <span class="ms-auto d-sm-flex flex-row">
 

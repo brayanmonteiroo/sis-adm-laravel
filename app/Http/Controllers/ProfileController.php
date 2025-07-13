@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use Exception;
@@ -13,12 +12,15 @@ use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
+
     // Detalhes do perfil
     public function show()
     {
         // Recuperar do banco de dados as informações do usuário logado
         $user = User::where('id', Auth::id())->first();
 
+        // Salvar log
+        Log::info('Visualizar perfil.', ['id' => $user->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a VIEW
         return view('profile.show', ['user' => $user]);
@@ -29,6 +31,9 @@ class ProfileController extends Controller
     {
         // Recuperar do banco de dados as informações do usuário logado
         $user = User::where('id', Auth::id())->first();
+
+        // Salvar log
+        Log::info('Carregar formulário editar perfil.', ['id' => $user->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a VIEW
         return view('profile.edit', ['user' => $user]);
@@ -45,7 +50,6 @@ class ProfileController extends Controller
         DB::beginTransaction();
 
         try {
-
             // Recuperar do banco de dados as informações do usuário logado
             $user = User::where('id', Auth::id())->first();
 
@@ -56,7 +60,7 @@ class ProfileController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Perfil editado!', ['id' => $user->id]);
+            Log::info('Perfil editado.', ['id' => $user->id, 'action_user_id' => Auth::id()]);
 
             // Operação é concluída com êxito
             DB::commit();
@@ -66,7 +70,7 @@ class ProfileController extends Controller
         } catch (Exception $e) {
 
             // Salvar log
-            Log::info('Perfil não editado.', ['error' => $e->getMessage()]);
+            Log::info('Perfil não editado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Operação não é concluída com êxito
             DB::rollBack();
@@ -81,6 +85,9 @@ class ProfileController extends Controller
     {
         // Recuperar do banco de dados as informações do usuário logado
         $user = User::where('id', Auth::id())->first();
+
+        // Salvar log
+        Log::info('Carregar formulário editar senha do perfil.', ['id' => $user->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a VIEW
         return view('profile.editPassword', ['user' => $user]);
@@ -112,7 +119,7 @@ class ProfileController extends Controller
             ]);
 
             // Salvar log
-            Log::info('Senha do perfil editada.', ['id' => $user->id]);
+            Log::info('Senha do perfil editada.', ['id' => $user->id, 'action_user_id' => Auth::id()]);
 
             // Operação é concluída com êxito
             DB::commit();
@@ -122,7 +129,7 @@ class ProfileController extends Controller
         } catch (Exception $e) {
 
             // Salvar log
-            Log::info('Senha do perfil não editada.', ['error' => $e->getMessage()]);
+            Log::info('Senha do perfil não editada.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
 
             // Operação não é concluída com êxito
             DB::rollBack();
@@ -131,4 +138,5 @@ class ProfileController extends Controller
             return back()->withInput()->with('error', 'Senha do perfil não editada!');
         }
     }
+
 }

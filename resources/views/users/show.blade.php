@@ -2,10 +2,11 @@
 
 @section('content')
     <div class="container-fluid px-4">
-        <div class="mb-1">
+        <div class="mb-1 hstack gap-2">
             <h2 class="mt-3">Usuário</h2>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('dashboard.index') }}">Painel</a></li>
+            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('dashboard.index') }}">Dashboard</a>
+                </li>
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('user.index') }}">Usuários</a></li>
                 <li class="breadcrumb-item active">Usuário</li>
             </ol>
@@ -18,17 +19,24 @@
 
                 <span class="ms-auto d-sm-flex flex-row">
 
-                    <a href="{{ route('user.index') }}" class="btn btn-info btn-sm me-1"><i class="fa-solid fa-list"></i>
-                        Listar</a>
+                    @can('index-user')
+                        <a href="{{ route('user.index') }}" class="btn btn-info btn-sm me-1"><i class="fa-solid fa-list"></i>
+                            Listar</a>
+                    @endcan
 
-                    <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="btn btn-warning btn-sm me-1"><i
-                            class="fa-solid fa-pen-to-square"></i> Editar
-                    </a>
+                    @can('edit-user')
+                        <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="btn btn-warning btn-sm me-1"><i
+                                class="fa-solid fa-pen-to-square"></i> Editar
+                        </a>
+                    @endcan
 
-                    <a href="{{ route('user.edit-password', ['user' => $user->id]) }}" class="btn btn-warning btn-sm me-1"><i
-                            class="fa-solid fa-pen-to-square"></i> Editar Senha
-                    </a>
+                    @can('edit-user-password')
+                        <a href="{{ route('user.edit-password', ['user' => $user->id]) }}"
+                            class="btn btn-warning btn-sm me-1"><i class="fa-solid fa-pen-to-square"></i> Editar Senha
+                        </a>
+                    @endcan
 
+                    @can('destroy-user')
                     <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
                         @csrf
                         @method('delete')
@@ -36,6 +44,7 @@
                             onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i
                                 class="fa-regular fa-trash-can"></i> Apagar</button>
                     </form>
+                    @endcan
                 </span>
             </div>
             <div class="card-body">
@@ -52,6 +61,15 @@
 
                     <dt class="col-sm-3">E-mail: </dt>
                     <dd class="col-sm-9">{{ $user->email }}</dd>
+
+                    <dt class="col-sm-3">Papel: </dt>
+                    <dd class="col-sm-9">
+                        @forelse ($user->getRoleNames() as $role)
+                            {{ $role }}
+                        @empty
+                            {{ "-" }}
+                        @endforelse    
+                    </dd>
 
                     <dt class="col-sm-3">Cadastrado: </dt>
                     <dd class="col-sm-9">

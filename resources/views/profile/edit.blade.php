@@ -5,7 +5,7 @@
         <div class="mb-1 hstack gap-2">
             <h2 class="mt-3">Perfil</h2>
             <ol class="breadcrumb mb-3 mt-3 ms-auto">
-                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('dashboard.index') }}">Painel</a></li>
+                <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('dashboard.index') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active">Perfil</li>
             </ol>
         </div>
@@ -15,8 +15,8 @@
                 <span>Editar</span>
                 <span class="ms-auto d-sm-flex flex-row">
 
-                    <a href="{{ route('profile.show', ['user' => $user->id]) }}" class="btn btn-primary btn-sm me-1"><i
-                            class="fa-regular fa-eye"></i> Ver
+                    <a href="{{ route('profile.show') }}" class="btn btn-primary btn-sm me-1"><i
+                            class="fa-regular fa-eye"></i> Visualizar
                     </a>
 
                 </span>

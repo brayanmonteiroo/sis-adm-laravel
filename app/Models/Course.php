@@ -10,16 +10,15 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Course extends Model implements Auditable
 {
-
     use HasFactory, AuditingAuditable;
 
     // Indicar o nome da tabela
     protected $table = 'courses';
 
-    // Indicar quais colunas podem ser cadastradas
+    // Indicar quais colunas podem ser cadastrada
     protected $fillable = ['name', 'price'];
 
-    // Criar relacionamento de 1 para Muitos
+    // Criar relacionamento entre um e muitos
     public function classe()
     {
         return $this->hasMany(Classe::class);

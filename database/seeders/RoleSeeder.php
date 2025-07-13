@@ -13,60 +13,117 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        if(!Role::where('name', 'Super Admin')->first()){
+
+        if (!Role::where('name', 'Super Admin')->first()) {
             Role::create([
                 'name' => 'Super Admin',
             ]);
         }
 
-        if(!Role::where('name', 'Admin')->first()){
+        if (!Role::where('name', 'Admin')->first()) {
             $admin = Role::create([
                 'name' => 'Admin',
             ]);
+        } else {
+            $admin = Role::where('name', 'Admin')->first();
+        }
 
-            // Dar permissão para o papel
-            $admin->givePermissionTo([
+        // Cadastrar permissão para o papel
+        $admin->givePermissionTo([
+
+            'index-user',
+            'show-user',
+            'create-user',
+            'edit-user',
+            'edit-user-password',
+            'destroy-user',
+            'generate-pdf-user',
+            'generate-csv-user',
+
             'index-course',
             'show-course',
             'create-course',
             'edit-course',
-            'destroy-course'
-            ]);
-        }
+            'destroy-course',
 
-        if(!Role::where('name', 'Professor')->first()){
-            $professor = Role::create([
+            'index-classe',
+            'show-classe',
+            'create-classe',
+            'edit-classe',
+            'destroy-classe',
+
+            'index-role',
+            'create-role',
+            'edit-role',
+            'destroy-role',
+
+            'index-role-permission',
+            'update-role-permission',
+        ]);
+
+        // Remover a permissão de acesso
+        // $admin->revokePermissionTo([
+        //     'update-role-permission',
+        // ]);
+
+        if (!Role::where('name', 'Professor')->first()) {
+            $teacher = Role::create([
                 'name' => 'Professor',
             ]);
+        } else {
+            $teacher = Role::where('name', 'Professor')->first();
+        }
 
-            // Dar permissão para o papel
-            $professor->givePermissionTo([
+        // Cadastrar permissão para o papel
+        $teacher->givePermissionTo([
+
+            'index-user',
+            'show-user',
+            'generate-pdf-user',
+            'generate-csv-user',
+            
             'index-course',
             'show-course',
             'create-course',
             'edit-course',
-            'destroy-course'
-            ]);
-        }
+            'destroy-course',
 
-        if(!Role::where('name', 'Tutor')->first()){
+            'index-classe',
+            'show-classe',
+            'create-classe',
+            'edit-classe',
+            'destroy-classe',
+        ]);
+
+        if (!Role::where('name', 'Tutor')->first()) {
             $tutor = Role::create([
                 'name' => 'Tutor',
             ]);
+        } else {
+            $tutor = Role::where('name', 'Tutor')->first();
+        }
 
-            // Dar permissão para o papel
-            $tutor->givePermissionTo([
+        // Cadastrar permissão para o papel
+        $tutor->givePermissionTo([
+
+            'index-user',
+            'show-user',
+            
             'index-course',
             'show-course',
             'edit-course',
-            ]);            
-        }
 
-        if(!Role::where('name', 'Aluno')->first()){
+            'index-classe',
+            'show-classe',
+            'edit-classe',
+        ]);
+
+        if (!Role::where('name', 'Aluno')->first()) {
             Role::create([
                 'name' => 'Aluno',
             ]);
+        } else {
+            $admin = Role::where('name', 'Aluno')->first();
         }
     }
 }

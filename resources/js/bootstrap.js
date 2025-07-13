@@ -1,4 +1,4 @@
-// Importar o framework Bootstrap
+/* Importar o framework Bootstrap */
 import 'bootstrap';
 
 import axios from 'axios';

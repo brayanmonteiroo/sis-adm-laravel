@@ -1,8 +1,8 @@
-// Importa a configuração inicial do Bootstrap JS 
+/* Importar o arquivo bootstrap */
 import './bootstrap';
 
-// Importa o JS do layout SB Admin
+/* Importar o JS do layout */
 import './scripts_sbadmin';
 
-// Importa o JS personalizado do Admin
+/* Importar o JS do admin */
 import './scripts_admin';

@@ -1,12 +1,11 @@
+/* CSS do aplicativo */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 /* Importar o CSS do layout */
 @import 'styles_sbadmin.css';
 
 /* Importar o CSS personalizar layout */
 @import 'styles_admin.css';
 
-/* Importa os Icones do Fontawesome */
+/* Importar Font Awesome */
 @import '@fortawesome/fontawesome-free/css/all.css';
-
-
-
-

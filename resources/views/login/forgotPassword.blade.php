@@ -1,10 +1,10 @@
 @extends('layouts.login')
 
 @section('content')
-    <div class="col-12 col-sm-8 col-md-8 col-lg-5">
-        <div class="card bg-light text-dark shadow-lg border-0 rounded-4 p-4">
-            <div class="card-header bg-transparent border-0 text-center mb-3">
-                <h3 class="fw-light"><i class="fa-brands fa-laravel"></i> Recuperar Senha</h3>
+    <div class="col-lg-5">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">Recuperar Senha</h3>
             </div>
             <div class="card-body">
 
@@ -15,22 +15,24 @@
                     @method('POST')
 
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="email" type="email" name="email"
-                            placeholder="nome@exemplo.com" value="{{ old('email') }}" required />
-                        <label for="email">Endereço de e-mail</label>
+                        <input type="email" name="email" class="form-control" id="email"
+                            placeholder="Digite o e-mail de usuário" value="{{ old('email') }}">
+                        <label for="email">E-mail</label>
                     </div>
 
-                    <div class="d-flex align-items-center justify-content-end mt-4 mb-0">
-                        <button type="submit" class="btn btn-primary" onclick="this.innerText = 'Enviando...'">Enviar link de recuperação</button>
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                        <button type="submit" class="btn btn-primary btn-sm" onclick="this.innerText = 'Recuperado...'">Recuperar</button>
                     </div>
 
                 </form>
             </div>
-            
-            <div class="card-footer bg-transparent border-0 text-center">
-                <div class="small">Lembrou sua senha? <a href="{{ route('login.index') }}"
-                        class="text-decoration-none">Voltar para o login</a></div>
+
+            <div class="card-footer text-center py-3">
+                <div class="small">
+                    <a href="{{ route('login.index') }}" class="text-decoration-none">Clique aqui</a> para acessar.
+                </div>
             </div>
+
         </div>
     </div>
 @endsection

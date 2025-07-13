@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileRequest extends FormRequest
@@ -26,7 +25,6 @@ class ProfileRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . Auth::id(),
-            // 'password' => 'required_if:password,!=,null|min:6',
         ];
     }
 
@@ -37,8 +35,6 @@ class ProfileRequest extends FormRequest
             'email.required' => 'Campo e-mail é obrigatório!',
             'email.email' => 'Necessário enviar e-mail válido!',
             'email.unique' => 'O e-mail já está cadastrado!',
-            // 'password.required_if' => 'Campo senha é obrigatório!',
-            // 'password.min' => 'Senha com no mínimo :min caracteres!',
         ];
     }
 }

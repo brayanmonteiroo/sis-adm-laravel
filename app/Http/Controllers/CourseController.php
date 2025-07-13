@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CourseRequest;
 use App\Models\Course;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -12,28 +14,34 @@ class CourseController extends Controller
 {
 
     // Listar os cursos
-    public function index()
+    public function index(Request $request)
     {
 
-        $courses = Course::orderBy('ID', 'ASC')
-            ->paginate(5);
+        // Recuperar os registros do banco dados
+        $courses = Course::when($request->has('name'), function ($whenQuery) use ($request){
+            $whenQuery->where('name', 'like', '%' . $request->name . '%');
+        })
+        ->orderByDesc('created_at')
+        ->paginate(40)
+        ->withQueryString();
 
-        //Salvar  log
-        Log::info('Listar cursos');
+        // Salvar log
+        Log::info('Listar curso.', ['action_user_id' => Auth::id()]);
 
         // Carregar a VIEW
-        return view('courses.index', ['menu' => 'courses', 'courses' => $courses]);
+        return view('courses.index', [
+            'menu' => 'courses', 
+            'courses' => $courses,
+            'name' => $request->name,
+        ]);
     }
 
     // Visualizar o curso
     public function show(Course $course)
     {
 
-        // dd($request->course);
-        // $course = Course::where('id', $request->course)->first();
-
-        //Salvar  log
-        Log::info('Visualizar o curso', ['course_id' => $course->id]);
+        // Salvar log
+        Log::info('Visualizar curso.', ['id' => $course->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a VIEW
         return view('courses.show', ['menu' => 'courses', 'course' => $course]);
@@ -42,6 +50,9 @@ class CourseController extends Controller
     // Carregar o formulário cadastrar novo curso
     public function create()
     {
+
+        // Salvar log
+        Log::info('Carregar formulário cadastrar curso.', ['action_user_id' => Auth::id()]);
 
         // Carregar a VIEW
         return view('courses.create', ['menu' => 'courses']);
@@ -54,32 +65,34 @@ class CourseController extends Controller
         // Validar o formulário
         $request->validated();
 
-        // Marcar o ponto inicial da transação
+        // Marca o ponto inicial de uma transação
         DB::beginTransaction();
 
         try {
 
             // Cadastrar no banco de dados na tabela cursos os valores de todos os campos
-            // dd($request->name);
             $course = Course::create([
                 'name' => $request->name,
                 'price' => str_replace(',', '.', str_replace('.', '', $request->price)),
             ]);
 
-            // Operação é concluída
+            // Operação é concluída com êxito
             DB::commit();
 
-            //Salvar  log
-            Log::info('Curso cadastrado', ['course_id' => $course->id]);
+            // Salvar log
+            Log::info('Curso cadastrado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso cadastrado com sucesso!');
         } catch (Exception $e) {
-            // Quando a operação não é concluida
+
+            // Operação não é concluída com êxito
             DB::rollBack();
-            //Salvar  log
-            Log::notice('Curso não cadastrado', ['error' => $e->getMessage()]);
-            // Redirecionar o usuário, enviar a mensagem de error
+
+            // Salvar log
+            Log::notice('Curso não cadastrado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+
+            // Redirecionar o usuário, enviar a mensagem de erro
             return back()->withInput()->with('error', 'Curso não cadastrado!');
         }
     }
@@ -87,6 +100,9 @@ class CourseController extends Controller
     // Carregar o formulário editar curso
     public function edit(Course $course)
     {
+
+        // Salvar log
+        Log::info('Carregar formulário editar curso.', ['id' => $course->id, 'action_user_id' => Auth::id()]);
 
         // Carregar a VIEW
         return view('courses.edit', ['menu' => 'courses', 'course' => $course]);
@@ -96,13 +112,13 @@ class CourseController extends Controller
     public function update(CourseRequest $request, Course $course)
     {
 
-        // Validar o formulário
-        $request->validated();
-
-        // Marcar o ponto inicial da transação
+        // Marca o ponto inicial de uma transação
         DB::beginTransaction();
 
         try {
+
+            // Validar o formulário
+            $request->validated();
 
             // Editar as informações do registro no banco de dados
             $course->update([
@@ -110,41 +126,48 @@ class CourseController extends Controller
                 'price' => str_replace(',', '.', str_replace('.', '', $request->price)),
             ]);
 
-            // Operação é concluída
+            // Operação é concluída com êxito
             DB::commit();
 
-            //Salvar  log
-            Log::info('Curso editado', ['course_id' => $course->id]);
+            // Salvar log
+            Log::info('Curso editado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso editado com sucesso!');
         } catch (Exception $e) {
-            // Quando a operação não é concluida
+
+            // Operação não é concluída com êxito
             DB::rollBack();
-            //Salvar  log
-            Log::warning('Curso não editado', ['error' => $e->getMessage()]);
-            // Redirecionar o usuário, enviar a mensagem de error
-            return back()->withInput()->with('error', 'O curso não pode ser editado!');
+
+            // Salvar log
+            Log::notice('Curso não editado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Curso não editado!');
         }
     }
 
     // Excluir o curso do banco de dados
     public function destroy(Course $course)
     {
+
         try {
+
             // Excluir o registro do banco de dados
             $course->delete();
 
-            //Salvar  log
-            Log::info('Curso apagado', ['course_id' => $course->id]);
+            // Salvar log
+            Log::info('Curso apagado.', ['course_id' => $course->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('course.index')->with('success', 'Curso excluído com sucesso!');
+            return redirect()->route('course.index')->with('success', 'Curso apagado com sucesso!');
         } catch (Exception $e) {
-            //Salvar  log
-            Log::warning('O curso não foi excluído', ['error' => $e->getMessage()]);
-            // Redirecionar o usuário, enviar a mensagem de erro
-            return redirect()->route('course.index')->with('error', 'O curso não foi excluído');
+
+            // Salvar log
+            Log::notice('Curso não apagado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('course.index')->with('error', 'Curso não apagado!');
         }
     }
 }
