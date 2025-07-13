@@ -6,10 +6,11 @@ set -e
 chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-# Instala dependências do Node e faz build do Vite se não existir o manifest
-if [ ! -f /var/www/public/build/manifest.json ]; then
-    npm install
-    npm run build
-fi
+# Instala dependências do Node
+npm install
 
+# Inicia o Vite em modo dev em background
+npm run dev &
+
+# Inicia o PHP-FPM (ou outro comando padrão)
 exec "$@"

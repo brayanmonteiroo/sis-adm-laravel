@@ -9,17 +9,17 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <title>Celke - Login</title>
+    <title>Laravel ADM - Login</title>
 </head>
 
-<body class="bg-primary">  
-    
+<body class="bg-dark">
+
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
-                <div class="container">
-                    <div class="row justify-content-center">
-    
+                <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+                    <div class="row justify-content-center w-100">
+
                         @yield('content')
 
                     </div>

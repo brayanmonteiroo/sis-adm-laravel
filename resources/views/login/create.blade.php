@@ -1,10 +1,10 @@
 @extends('layouts.login')
 
 @section('content')
-    <div class="col-lg-7">
-        <div class="card shadow-lg border-0 rounded-lg mt-5">
+    <div class="col-lg-7 d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+        <div class="card shadow-lg border-0 rounded-lg w-100">
             <div class="card-header">
-                <h3 class="text-center font-weight-light my-4">Novo Usuário</h3>
+                <h3 class="text-center font-weight-light my-4"><i class="fa-brands fa-laravel"></i> Novo Usuário</h3>
             </div>
             <div class="card-body">
 

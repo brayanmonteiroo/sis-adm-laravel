@@ -1,10 +1,10 @@
 @extends('layouts.login')
 
 @section('content')
-    <div class="col-lg-5">
-        <div class="card shadow-lg border-0 rounded-lg mt-5">
+    <div class="col-lg-5 d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+        <div class="card shadow-lg border-0 rounded-lg w-100">
             <div class="card-header">
-                <h3 class="text-center font-weight-light my-4">Nova Senha</h3>
+                <h3 class="text-center font-weight-light my-4"><i class="fa-brands fa-laravel"></i> Nova Senha</h3>
             </div>
             <div class="card-body">
 
@@ -23,8 +23,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control" id="password"
-                            placeholder="Nova Senha">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Nova Senha">
                         <label for="password">Nova Senha</label>
                     </div>
 
@@ -35,7 +34,8 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <button type="submit" class="btn btn-primary btn-sm" onclick="this.innerText = 'Atualizando...'">Atualizar</button>
+                        <button type="submit" class="btn btn-primary btn-sm"
+                            onclick="this.innerText = 'Atualizando...'">Atualizar</button>
                     </div>
 
                 </form>

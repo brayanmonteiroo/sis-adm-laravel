@@ -9,14 +9,14 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <title>Celke</title>
+    <title>Laravel ADM</title>
 </head>
 
 <body class="sb-nav-fixed">
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-nav">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="#">Celke</a>
+        <a class="navbar-brand ps-3" href="#"><i class="fa-brands fa-laravel"></i> Laravel ADM</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -30,11 +30,11 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{{ route('profile.show') }}">Perfil</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile.show') }}"><i class="fa-solid fa-user"></i> Perfil</a></li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="{{ route('login.destroy') }}">Sair</a></li>
+                    <li><a class="dropdown-item" href="{{ route('login.destroy') }}"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
                 </ul>
             </li>
         </ul>
@@ -42,7 +42,7 @@
 
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-five" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
 
@@ -86,11 +86,10 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logado:
+                    <div class="small">Logado com: </div>
                         @if (auth()->check())
                             {{ auth()->user()->name }}
                         @endif
-                    </div>
                 </div>
             </nav>
         </div>
@@ -104,7 +103,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Celke {{ date('Y') }}</div>
+                        <div class="text-muted">Copyright &copy; Brayan Monteiro {{ date('Y') }}</div>
                         <div>
                             <a href="#" class="text-decoration-none">Política de Privacidade</a>
                             &middot;

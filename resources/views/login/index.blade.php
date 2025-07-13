@@ -1,10 +1,10 @@
 @extends('layouts.login')
 
 @section('content')
-    <div class="col-lg-5">
-        <div class="card shadow-lg border-0 rounded-lg mt-5">
+    <div class="col-lg-5 d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+        <div class="card shadow-lg border-0 rounded-lg w-100">
             <div class="card-header">
-                <h3 class="text-center font-weight-light my-4">Área Restrita</h3>
+                <h3 class="text-center font-weight-light my-4"><i class="fa-brands fa-laravel"></i> Laravel ADM - Login</h3>
             </div>
             <div class="card-body">
 
@@ -27,7 +27,8 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <a href="{{ route('forgot-password.show') }}" class="small text-decoration-none">Esqueceu a senha?</a>
+                        <a href="{{ route('forgot-password.show') }}" class="small text-decoration-none">Esqueceu a
+                            senha?</a>
                         <button type="submit" class="btn btn-primary btn-sm">Acessar</button>
                     </div>
 
@@ -36,11 +37,12 @@
 
             <div class="card-footer text-center py-3">
                 <div class="small">
-                    Precisa de uma conta? <a href="{{ route('login.create-user') }}" class="text-decoration-none">Inscrever-se!</a>
+                    Precisa de uma conta? <a href="{{ route('login.create-user') }}"
+                        class="text-decoration-none">Inscrever-se!</a>
                 </div>
 
                 <div class="small">
-                    Usuário: cesar@celke.com.br<br>
+                    Usuário: super-admin@gmail.com<br>
                     Senha: 123456a
                 </div>
             </div>
