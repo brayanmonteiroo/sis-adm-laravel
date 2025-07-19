@@ -22,15 +22,22 @@ class ProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = Auth::id();
+
+        $emailRule = 'required|email|unique:users,email';
+        if ($userId) {
+            $emailRule .= ',' . $userId;
+        }
+
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'email' => $emailRule,
         ];
     }
 
     public function messages(): array
     {
-        return[
+        return [
             'name.required' => 'Campo nome é obrigatório!',
             'email.required' => 'Campo e-mail é obrigatório!',
             'email.email' => 'Necessário enviar e-mail válido!',
