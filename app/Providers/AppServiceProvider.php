@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
         // Incluir a paginação do Bootstrap 5
         Paginator::useBootstrapFive();
 
-        // Temporariamente comentado para debug
-        // Gate::before(function ($user, $ability) {
-        //     return $user->hasRole('Super Admin') ? true : null;
-        // });
+        // Super Admin tem acesso a todas as páginas
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
 
         // Esse if é para forçar o uso da URL raiz em produção
         if ($this->app->environment('production')) {
