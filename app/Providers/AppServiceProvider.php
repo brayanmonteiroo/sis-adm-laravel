@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasRole('Super Admin') ? true : null;
         });
 
-        // Esse if é para forçar o uso da URL raiz em produção
+        // Esse if é para forçar o uso da URL raiz em produção e forçar o uso de HTTPS
         if ($this->app->environment('production')) {
             URL::forceRootUrl(config('app.url'));
             URL::forceScheme('https');
