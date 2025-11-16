@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         // Esse if é para forçar o uso da URL raiz em produção
         if ($this->app->environment('production')) {
             URL::forceRootUrl(config('app.url'));
+            URL::forceScheme('https');
         }
     }
 }
